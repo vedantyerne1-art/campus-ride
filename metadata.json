@@ -1,0 +1,6 @@
+{
+  "name": "CampusSathi",
+  "description": "Apple-style Liquid Glass campus ride-sharing application with live GPS tracking, student trust verification, and instant UPI payments.",
+  "requestFramePermissions": ["geolocation", "camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

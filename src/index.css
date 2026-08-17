@@ -1,0 +1,429 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Plus Jakarta Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ==========================================================================
+   CampusSathi — Apple-Style Liquid Glass Design System
+   ========================================================================== */
+
+@layer utilities {
+  /* 1. Base Liquid Glass Panel (Mid-Layer: Sheets, Large Cards, Modals) */
+  .liquid-glass-panel,
+  .glass-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-top-color: rgba(255, 255, 255, 0.35);
+    border-left-color: rgba(255, 255, 255, 0.25);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    border-right-color: rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 12px 36px 0 rgba(0, 0, 0, 0.22),
+      0 2px 8px 0 rgba(0, 0, 0, 0.12),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.32);
+    border-radius: 28px;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* 2. Subtle Liquid Glass (Inner Layer: Sub-cards, Segmented Containers, Selectors) */
+  .liquid-glass-subtle,
+  .glass-card-subtle {
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top-color: rgba(255, 255, 255, 0.28);
+    border-left-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+    box-shadow:
+      0 4px 16px 0 rgba(0, 0, 0, 0.15),
+      inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* 3. Liquid Glass Interactive Controls (Buttons, Pills, Actions) */
+  .liquid-glass-btn,
+  .glass-button {
+    position: relative;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px) saturate(190%);
+    -webkit-backdrop-filter: blur(16px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-top-color: rgba(255, 255, 255, 0.45);
+    box-shadow:
+      0 4px 14px 0 rgba(0, 0, 0, 0.14),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+    border-radius: 18px;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    user-select: none;
+  }
+  .liquid-glass-btn:hover,
+  .glass-button:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.38);
+    border-top-color: rgba(255, 255, 255, 0.6);
+    box-shadow:
+      0 6px 20px 0 rgba(0, 0, 0, 0.2),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .liquid-glass-btn:active,
+  .glass-button:active {
+    transform: scale(0.96);
+    filter: brightness(1.08);
+    box-shadow:
+      0 2px 6px 0 rgba(0, 0, 0, 0.1),
+      inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  /* 4. Liquid Glass Input Fields */
+  .liquid-glass-input,
+  .glass-input {
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-top-color: rgba(255, 255, 255, 0.26);
+    box-shadow:
+      inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.25),
+      0 2px 6px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .liquid-glass-input:focus,
+  .glass-input:focus {
+    background: rgba(15, 23, 42, 0.65);
+    border-color: rgba(129, 140, 248, 0.65);
+    border-top-color: rgba(165, 180, 252, 0.85);
+    box-shadow:
+      0 0 0 3px rgba(99, 102, 241, 0.25),
+      inset 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+
+  /* 5. Liquid Glass Primary Floating Action Pill */
+  .liquid-glass-primary {
+    position: relative;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.85) 0%, rgba(139, 92, 246, 0.85) 100%);
+    backdrop-filter: blur(18px) saturate(190%);
+    -webkit-backdrop-filter: blur(18px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-top-color: rgba(255, 255, 255, 0.65);
+    box-shadow:
+      0 8px 24px -2px rgba(99, 102, 241, 0.4),
+      0 2px 6px 0 rgba(0, 0, 0, 0.15),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.45);
+    border-radius: 20px;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .liquid-glass-primary:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
+    box-shadow:
+      0 12px 30px -2px rgba(99, 102, 241, 0.5),
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6);
+  }
+  .liquid-glass-primary:active {
+    transform: scale(0.96);
+    filter: brightness(1.08);
+  }
+
+  /* 6. Liquid Glass Emerald / Success Pill */
+  .liquid-glass-emerald {
+    position: relative;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.85) 0%, rgba(13, 148, 136, 0.85) 100%);
+    backdrop-filter: blur(18px) saturate(190%);
+    -webkit-backdrop-filter: blur(18px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-top-color: rgba(255, 255, 255, 0.65);
+    box-shadow:
+      0 8px 24px -2px rgba(16, 185, 129, 0.4),
+      0 2px 6px 0 rgba(0, 0, 0, 0.15),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.45);
+    border-radius: 20px;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .liquid-glass-emerald:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(13, 148, 136, 0.95) 100%);
+    box-shadow:
+      0 12px 30px -2px rgba(16, 185, 129, 0.5),
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6);
+  }
+  .liquid-glass-emerald:active {
+    transform: scale(0.96);
+    filter: brightness(1.08);
+  }
+
+  /* 7. Liquid Glass SOS / Distress Pill */
+  .liquid-glass-sos {
+    position: relative;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.88) 0%, rgba(244, 63, 94, 0.88) 100%);
+    backdrop-filter: blur(18px) saturate(200%);
+    -webkit-backdrop-filter: blur(18px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-top-color: rgba(255, 255, 255, 0.7);
+    box-shadow:
+      0 8px 26px -2px rgba(239, 68, 68, 0.45),
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55);
+    border-radius: 20px;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .liquid-glass-sos:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.98) 0%, rgba(244, 63, 94, 0.98) 100%);
+    box-shadow:
+      0 12px 34px -2px rgba(239, 68, 68, 0.6),
+      inset 0 1px 2px 0 rgba(255, 255, 255, 0.7);
+  }
+  .liquid-glass-sos:active {
+    transform: scale(0.96);
+    filter: brightness(1.08);
+  }
+
+  /* 8. Light-Reflective Specular Highlight Effect */
+  .specular-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .specular-shine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      transparent 100%
+    );
+    transform: skewX(-20deg);
+    pointer-events: none;
+    transition: left 0.75s ease;
+  }
+  .specular-shine:hover::after {
+    left: 140%;
+  }
+
+  /* Apple-Style Text Shadow for crisp readability on dynamic glass */
+  .glass-text {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  }
+  .glass-caption {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Apple Typography Hierarchy */
+  .apple-large-title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+  .apple-title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  .apple-headline {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+  .apple-body {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+  .apple-caption {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+/* ==========================================================================
+   Leaflet Map Styling for Liquid Glass Aesthetics
+   ========================================================================== */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #090d16 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Plus Jakarta Sans", sans-serif;
+}
+
+.leaflet-tile {
+  filter: brightness(0.68) invert(1) contrast(3.2) hue-rotate(205deg) saturate(0.3);
+}
+
+.leaflet-bar {
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+}
+
+.leaflet-bar a {
+  background-color: transparent !important;
+  color: #f1f5f9 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+.leaflet-bar a:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: rgba(15, 23, 42, 0.85) !important;
+  color: #f8fafc !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-top-color: rgba(255, 255, 255, 0.45) !important;
+  border-radius: 22px !important;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Marker Glow and Pulse */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.pulse-ring-element {
+  animation: pulse-ring 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* ==========================================================================
+   Dynamic GPU Background Mesh Animation
+   ========================================================================== */
+@keyframes floatMeshBlob1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(40px, -50px, 0) scale(1.12);
+  }
+  66% {
+    transform: translate3d(-35px, 25px, 0) scale(0.92);
+  }
+}
+
+@keyframes floatMeshBlob2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(-50px, 35px, 0) scale(1.15);
+  }
+  66% {
+    transform: translate3d(30px, -45px, 0) scale(0.95);
+  }
+}
+
+@keyframes floatMeshBlob3 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  40% {
+    transform: translate3d(35px, 40px, 0) scale(1.1);
+  }
+  75% {
+    transform: translate3d(-40px, -30px, 0) scale(0.94);
+  }
+}
+
+.animate-blob-1 {
+  animation: floatMeshBlob1 13s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.animate-blob-2 {
+  animation: floatMeshBlob2 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.animate-blob-3 {
+  animation: floatMeshBlob3 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob-1,
+  .animate-blob-2,
+  .animate-blob-3,
+  .pulse-ring-element {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.05s !important;
+  }
+}
+
+/* Shake Animation for Invalid OTP / Form Errors */
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.animate-shake {
+  animation: error-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Face outline guide for camera capture */
+.face-guide-oval {
+  border: 2px dashed rgba(129, 140, 248, 0.75);
+  border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+  box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.65);
+}
+
+/* Glass drawer backdrop & slide transitions */
+.drawer-enter {
+  transform: translateX(-100%);
+}
+.drawer-enter-active {
+  transform: translateX(0);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.drawer-exit {
+  transform: translateX(0);
+}
+.drawer-exit-active {
+  transform: translateX(-100%);
+  transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+}
+

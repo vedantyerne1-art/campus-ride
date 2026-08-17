@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Default deny for unmatched documents
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAuthenticated();
+      allow delete: if isOwner(userId);
+    }
+
+    // Drivers online/location stream (public read for real-time map visualization)
+    match /drivers/{driverId} {
+      allow read: if true;
+      allow create, update, delete: if isAuthenticated() && (request.auth.uid == driverId || isOwner(driverId));
+    }
+
+    // Campus pickup points (pre-set campus points)
+    match /pickupPoints/{pointId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Trips collection & messages subcollection (public read for shareable live safety links)
+    match /trips/{tripId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+      allow delete: if isAuthenticated();
+
+      match /messages/{messageId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+
+    // SOS Emergency Alerts
+    match /sosAlerts/{alertId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+    }
+
+    // Safety & Incident Reports
+    match /reports/{reportId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+    }
+
+    // Ratings
+    match /ratings/{ratingId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+    }
+
+    // Payment Transactions
+    match /transactions/{txId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+    }
+
+    // Driver Payout Requests
+    match /payouts/{payoutId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+    }
+  }
+}
+

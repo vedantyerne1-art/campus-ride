@@ -1,0 +1,207 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with role, trust score, verification status, and wallet",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "description": "Campus or personal email" },
+        "displayName": { "type": "string", "description": "Full display name" },
+        "photoURL": { "type": "string", "description": "Profile picture URL" },
+        "phoneNumber": { "type": "string", "description": "Phone number" },
+        "role": { "type": "string", "enum": ["rider", "driver", "admin"], "description": "Primary user role" },
+        "tier": { "type": "string", "enum": ["tier1_student_staff", "tier2_community"], "description": "Trust tier" },
+        "verificationStatus": { "type": "string", "enum": ["unsubmitted", "pending", "approved", "rejected"], "description": "Document verification status" },
+        "trustScore": { "type": "number", "description": "Calculated trust score 0-100" },
+        "collegeName": { "type": "string", "description": "Affiliated college or campus name" },
+        "studentStaffId": { "type": "string", "description": "Student or Staff Roll/ID number" },
+        "walletBalance": { "type": "number", "description": "Current wallet balance in INR" },
+        "ratingAverage": { "type": "number", "description": "Average rating score 1-5" },
+        "ratingCount": { "type": "number", "description": "Number of ratings received" },
+        "totalTripsCompleted": { "type": "number", "description": "Total completed trips" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of creation" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of last update" }
+      },
+      "required": ["uid", "email", "displayName", "role", "tier", "verificationStatus"]
+    },
+    "DriverOnlineRecord": {
+      "title": "DriverOnlineRecord",
+      "description": "Active online driver location and availability stream on campus",
+      "type": "object",
+      "properties": {
+        "driverId": { "type": "string", "description": "Driver Auth UID" },
+        "name": { "type": "string", "description": "Driver name" },
+        "photo": { "type": "string", "description": "Driver avatar URL" },
+        "phone": { "type": "string", "description": "Contact phone" },
+        "tier": { "type": "string", "description": "Verification tier" },
+        "trustScore": { "type": "number", "description": "Trust score" },
+        "lat": { "type": "number", "description": "Current latitude coordinate" },
+        "lng": { "type": "number", "description": "Current longitude coordinate" },
+        "heading": { "type": "number", "description": "Compass heading in degrees" },
+        "isAvailable": { "type": "boolean", "description": "True if driver is accepting trips" },
+        "lastUpdated": { "type": "string", "description": "ISO timestamp of last GPS ping" }
+      },
+      "required": ["driverId", "name", "lat", "lng", "isAvailable"]
+    },
+    "CampusPickupPoint": {
+      "title": "CampusPickupPoint",
+      "description": "Pre-configured campus hub pickup and drop point",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique point identifier" },
+        "name": { "type": "string", "description": "Hub name" },
+        "area": { "type": "string", "description": "Campus area or landmark" },
+        "campusZone": { "type": "string", "description": "Campus sector zone" },
+        "lat": { "type": "number", "description": "Latitude" },
+        "lng": { "type": "number", "description": "Longitude" },
+        "isPopular": { "type": "boolean", "description": "True if frequent hub" }
+      },
+      "required": ["id", "name", "lat", "lng"]
+    },
+    "TripRecord": {
+      "title": "TripRecord",
+      "description": "Campus ride share booking and tracking record",
+      "type": "object",
+      "properties": {
+        "riderId": { "type": "string", "description": "Rider Auth UID" },
+        "riderName": { "type": "string", "description": "Rider name" },
+        "driverId": { "type": "string", "description": "Driver Auth UID if assigned" },
+        "driverName": { "type": "string", "description": "Driver name" },
+        "status": { "type": "string", "enum": ["searching", "assigned", "en_route", "arrived", "in_progress", "completed", "cancelled"], "description": "Trip lifecycle status" },
+        "vehicleType": { "type": "string", "description": "Requested vehicle category" },
+        "fare": { "type": "number", "description": "Total trip fare in INR" },
+        "otpPin": { "type": "string", "description": "4-digit pickup security OTP" },
+        "distanceKm": { "type": "number", "description": "Trip distance in km" },
+        "durationMins": { "type": "number", "description": "Estimated duration in minutes" }
+      },
+      "required": ["riderId", "riderName", "status", "fare", "otpPin"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Trip in-app coordination chat message",
+      "type": "object",
+      "properties": {
+        "tripId": { "type": "string", "description": "Associated trip ID" },
+        "senderId": { "type": "string", "description": "Sender UID" },
+        "senderName": { "type": "string", "description": "Sender display name" },
+        "senderRole": { "type": "string", "description": "Sender role: rider or driver" },
+        "text": { "type": "string", "description": "Message content" },
+        "timestamp": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["senderId", "text", "timestamp"]
+    },
+    "SosAlert": {
+      "title": "SosAlert",
+      "description": "Campus emergency SOS distress alert",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Alert ID" },
+        "lat": { "type": "number", "description": "Emergency GPS latitude" },
+        "lng": { "type": "number", "description": "Emergency GPS longitude" },
+        "address": { "type": "string", "description": "Resolved campus location" },
+        "status": { "type": "string", "enum": ["active", "resolved"], "description": "Alert status" },
+        "timestamp": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "lat", "lng", "status", "timestamp"]
+    },
+    "SafetyReport": {
+      "title": "SafetyReport",
+      "description": "User submitted safety or misconduct incident report",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Report ID" },
+        "reporterId": { "type": "string", "description": "Reporter UID" },
+        "reporterName": { "type": "string", "description": "Reporter display name" },
+        "category": { "type": "string", "description": "Report category" },
+        "description": { "type": "string", "description": "Incident narrative" },
+        "timestamp": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "reporterId", "description", "timestamp"]
+    },
+    "RatingRecord": {
+      "title": "RatingRecord",
+      "description": "Trip mutual peer rating record",
+      "type": "object",
+      "properties": {
+        "tripId": { "type": "string", "description": "Trip ID" },
+        "fromUserId": { "type": "string", "description": "Rater UID" },
+        "toUserId": { "type": "string", "description": "Rated user UID" },
+        "rating": { "type": "number", "description": "Star score 1-5" },
+        "feedback": { "type": "string", "description": "Optional text review" },
+        "timestamp": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["tripId", "fromUserId", "toUserId", "rating", "timestamp"]
+    },
+    "TransactionRecord": {
+      "title": "TransactionRecord",
+      "description": "Financial transaction or wallet credit/debit record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Transaction ID" },
+        "userId": { "type": "string", "description": "Account UID" },
+        "amount": { "type": "number", "description": "Amount in INR" },
+        "type": { "type": "string", "enum": ["ride_fare", "driver_payout", "wallet_topup", "referral_bonus"], "description": "Transaction category" },
+        "status": { "type": "string", "enum": ["pending", "completed", "failed"], "description": "Transaction status" },
+        "timestamp": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["id", "userId", "amount", "type", "status", "timestamp"]
+    },
+    "PayoutRequest": {
+      "title": "PayoutRequest",
+      "description": "Driver instant UPI payout withdrawal request",
+      "type": "object",
+      "properties": {
+        "driverId": { "type": "string", "description": "Driver UID" },
+        "driverName": { "type": "string", "description": "Driver display name" },
+        "amount": { "type": "number", "description": "Withdrawal amount in INR" },
+        "upiId": { "type": "string", "description": "Recipient UPI ID" },
+        "status": { "type": "string", "enum": ["pending", "processed", "failed"], "description": "Payout processing status" },
+        "requestedAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["driverId", "amount", "upiId", "status", "requestedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Campus member profiles with verification, trust scores, and wallet"
+    },
+    "/drivers/{driverId}": {
+      "schema": { "$ref": "#/entities/DriverOnlineRecord" },
+      "description": "Real-time online campus captains for live mapping and dispatch"
+    },
+    "/pickupPoints/{pointId}": {
+      "schema": { "$ref": "#/entities/CampusPickupPoint" },
+      "description": "Campus designated pickup, hub, and drop zones"
+    },
+    "/trips/{tripId}": {
+      "schema": { "$ref": "#/entities/TripRecord" },
+      "description": "Campus ride share booking and tracking documents"
+    },
+    "/trips/{tripId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/ChatMessage" },
+      "description": "Real-time chat messages between matched rider and captain"
+    },
+    "/sosAlerts/{alertId}": {
+      "schema": { "$ref": "#/entities/SosAlert" },
+      "description": "Campus emergency distress signals"
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/SafetyReport" },
+      "description": "Campus safety and peer misconduct reports"
+    },
+    "/ratings/{ratingId}": {
+      "schema": { "$ref": "#/entities/RatingRecord" },
+      "description": "Two-way peer trip ratings"
+    },
+    "/transactions/{txId}": {
+      "schema": { "$ref": "#/entities/TransactionRecord" },
+      "description": "Payment records and wallet transaction logs"
+    },
+    "/payouts/{payoutId}": {
+      "schema": { "$ref": "#/entities/PayoutRequest" },
+      "description": "Driver UPI payout withdrawal requests"
+    }
+  }
+}
